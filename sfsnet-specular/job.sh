@@ -20,11 +20,7 @@ VAL_SIZE=10
 ROUND=4
 
 CELEBA=masked_celeba
-# note round 1 uses reconstruction loss too during sfs while round 4 did not but round 4 is better although shading is worse
 MODEL_BASE_DIR=output-5k-40-80pc-10e-all-poses-none-sfsnet-2019-specular
-# MODEL_BASE_DIR=output-5k-20-120pc-5e-more-poses-none-sfsnet
-# MODEL_BASE_DIR=output-5000-50-100pc-5e-none-15poses-2019-sfsnet
-# MODEL_BASE_DIR=output-1k-100-120pc-simple-poses-none-sfsnet
 SYN_DATA_DIR=/work/ws-tmp/g051151-bfm/$MODEL_BASE_DIR/
 OUT_DIR=sfs-outs/$CELEBA/round-$ROUND/$MODEL_BASE_DIR
 MODEL_DIR=$OUT_DIR/sfsnet-bfm.pth

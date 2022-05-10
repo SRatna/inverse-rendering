@@ -5,8 +5,6 @@ import torch
 import numpy as np
 from torch.utils.data import DataLoader
 from datasets import PhotoFaceDataset
-from model_sfs import SfsNetPipeline
-from model_sfs_two import SfsNetPipeline as SfsNetPipeline2
 from model_two import SfsNetPipeline as SfsNetPipelineBFM
 from log import telegram_logger as tl
 from utils import load_model_from_pretrained
@@ -40,65 +38,23 @@ def angle_between(v1, v2):
 
 
 models = [
-    # {
-    #     'path': './output-10000-10-120pc-5e-center-faces-none-2019-sfsnet-specular-ft/sfsnet-bfm.pth',
-    #     'type': 'bfm',
-    #     'name': 'Sfsnet BFM'
-    # },
-    # {
-    #     'path': './output-10000-20-120pc-5e-center-faces-none-2019-sfsnet-specular/sfsnet-bfm.pth',
-    #     'type': 'bfm',
-    #     'name': 'Sfsnet BFM'
-    # },
-    # {
-    #     'path': './pseudo-outs/masked_celeba/output-10000-20-120pc-5e-center-faces-none-2019-sfsnet-specular/pseudo-sfsnet-bfm.pth',
-    #     'type': 'bfm',
-    #     'name': 'Sfsnet BFM Pseudo Trained'
-    # },
-    # {
-    #     'path': f'../round-training/sfsnet-round-2.pth',
-    #     'type': 'sfs',
-    #     'name': f'Sfsnet'
-    # },
     {
-        'path': f'../round-training/sfsnet-mix-round-2.pth',
-        'type': 'sfs',
-        'name': f'Sfsnet Mix'
+        'path': f'{args.out_dir}/sfsnet-bfm.pth',
+        'type': 'bfm',
+        'name': 'Sfsnet BFM'
     },
-    # {
-    #     'path': f'{args.out_dir}/sfsnet-bfm.pth',
-    #     'type': 'bfm',
-    #     'name': 'Sfsnet BFM'
-    # },
     {
         'path': f'{args.mix_out_dir}/mix-sfsnet-bfm.pth',
         'type': 'bfm',
         'name': 'Sfsnet BFM Mix'
     },
-    # {
-    #     'path': '../net_epoch_r5_5.pth',
-    #     'type': 'pretrained',
-    #     'name': 'Sfsnet Pretrained'
-    # },
 ]
 
 for model in models:
     tl(model['name'])
-    # load neural net
-    net = SfsNetPipeline2()
-    if model['type'] == 'bfm':
-        net = SfsNetPipelineBFM(device)
-    if model['type'] == 'pretrained':
-        print('pretrained')
-        net = SfsNetPipeline()
-        state_dict = torch.load(
-            model['path'], map_location=args.device)
-        sfs_net_dict = {}
-        sfs_net_dict = load_model_from_pretrained(state_dict, sfs_net_dict)
-        net.load_state_dict(sfs_net_dict)
-    else:
-        net.load_state_dict(torch.load(
-            model['path'], map_location=args.device))
+    net = SfsNetPipelineBFM(device)
+    net.load_state_dict(torch.load(
+        model['path'], map_location=args.device))
     net = net.to(device)
 
     errors = []

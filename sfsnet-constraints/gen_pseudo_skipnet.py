@@ -5,7 +5,7 @@ import torch
 import numpy as np
 from torch.utils.data import DataLoader
 from datasets import MaskedCelebADataset
-from model_two import SfsNetPipeline
+from model_two import SkipNet
 from utils import save_image, denorm
 from log import telegram_logger as tl
 import os
@@ -31,14 +31,14 @@ tl(len(dl))
 tl(f'batch size: {args.batch_size}')
 
 device = args.device
-sfs_net = SfsNetPipeline()
+skip_net = SkipNet()
 
-sfs_net.load_state_dict(torch.load(model_path, map_location=device))
-sfs_net = sfs_net.to(device)
+skip_net.load_state_dict(torch.load(model_path, map_location=device))
+skip_net = skip_net.to(device)
 
 
 
-sfs_net.eval()
+skip_net.eval()
 with torch.no_grad():
     for bix, data in enumerate(dl):
         face, mask = data
@@ -46,7 +46,7 @@ with torch.no_grad():
         face = face.to(device)
         masked_face = face * mask
         file_name = out_folder + str(bix)
-        predicted_normal, predicted_albedo, predicted_sh, predicted_shading, predicted_face = sfs_net(masked_face)
+        predicted_normal, predicted_albedo, predicted_sh, predicted_shading, predicted_face = skip_net(masked_face)
         predicted_normal = denorm(predicted_normal)
         for i in range(len(face)):
             file_name = f'{out_folder}{bix}_{i}'

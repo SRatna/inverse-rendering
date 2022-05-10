@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from utils_sfs import get_shading
+from utils import get_shading
 
 # Base methods for creating convnet
 
@@ -114,12 +114,15 @@ class NormalGenerationNet(nn.Module):
         self.conv1 = get_conv(128, 128, kernel_size=1, stride=1)
         self.conv2 = get_conv(128, 64, kernel_size=3, padding=1)
         self.conv3 = nn.Conv2d(64, 3, kernel_size=1)
+        device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+        self.epsilon = torch.tensor(1e-4).to(device)
 
     def forward(self, x):
         out = self.upsample(x)
         out = self.conv1(out)
         out = self.conv2(out)
         out = self.conv3(out)
+        out = out / torch.maximum(torch.linalg.norm(out, dim=1, keepdim=True), self.epsilon)
         return out
 
 
@@ -213,6 +216,28 @@ class SfsNetPipeline(nn.Module):
         out_recon = reconstruct_image(out_shading, predicted_albedo)
 
         return predicted_normal, predicted_albedo, predicted_sh, out_shading, out_recon
+
+class SfsNetNormal(nn.Module):
+    """ SfSNet Pipeline
+    """
+
+    def __init__(self):
+        super(SfsNetNormal, self).__init__()
+
+        self.conv_model = baseFeaturesExtractions()
+        self.normal_residual_model = NormalResidualBlock()
+        self.normal_gen_model = NormalGenerationNet()
+
+    def forward(self, face):
+        # Following is training pipeline
+        # 1. Pass Image from Conv Model to extract features
+        out_features = self.conv_model(face)
+
+        # 2 a. Pass Conv features through Normal Residual
+        out_normal_features = self.normal_residual_model(out_features)
+        # 3 a. Generate Normal
+        predicted_normal = self.normal_gen_model(out_normal_features)
+        return predicted_normal
 
 
 def get_skipnet_conv(in_channels, out_channels, kernel_size=3, padding=0, stride=1):
