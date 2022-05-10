@@ -3,7 +3,7 @@
 In this work, we aim to improve upon a state of the art inverse rendering method called SfSNet. We constrain SfSNet such that it always predicts unit normals and also introduce specularity in its rendering function with an aim to make it robust even with faces that contains specular highlights. Although its normal estimation gets improved than the original SfSNet work, specular highlights still persist on predicted albedo when tested on real faces with specular highlights. In spite of the fact that the rendering function with added specularity have not worked perfectly, it opens up new possibility of research on similar direction to solve this problem of specularity. 
 
 ## SfSNet-Constraints
-Implmentation of the SfSNet with constraints can be found in `\sfsnet-constraints`. We explain below the role of each scripts present in that directory.
+Implmentation of the SfSNet with constraints can be found in `/sfsnet-constraints`. We explain below the role of each scripts present in that directory.
 
 ```
 ├─── datasets.py: Data loading and pre-processing methods 
@@ -24,7 +24,7 @@ Implmentation of the SfSNet with constraints can be found in `\sfsnet-constraint
 ```
 
 ## SfSNet-Specular
-Implmentation of the SfSNet with specularity using our constrained model (calculated z-component constraint) can be found in `\sfsnet-specular`. We explain below the role of each scripts present in that directory.
+Implmentation of the SfSNet with specularity using our constrained model (calculated z-component constraint) can be found in `/sfsnet-specular`. We explain below the role of each scripts present in that directory.
 
 ```
 ├─── datasets.py: Data loading and pre-processing methods 
