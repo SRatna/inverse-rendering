@@ -15,7 +15,6 @@ Implmentation of the SfSNet with constraints can be found in `/sfsnet-constraint
 ├─── sfs.py: Train SfSNet on synthetic data
 ├─── skip.py: Train Skipnet on synthetic data
 ├─── gen_face_mask_celeba.py: Generate face mask for each image in celeba dataset
-├─── gen_pseudo_sfsnet.py: Generate pseudo dataset using pretrained SfSNet on synthetic dataset
 ├─── gen_pseudo_skipnet.py: Generate pseudo dataset using pretrained Skipnet on synthetic dataset
 ├─── mix_sfs.py: Train SfSNet on mix data
 ├─── photoface.py: Pre-process the photoface dataset
@@ -34,7 +33,6 @@ Implmentation of the SfSNet with specularity using our constrained model (calcul
 ├─── add-specular.py: Add specularity to the synthetic dataset generated using BFM-2017 model
 ├─── sfs.py: Train SfSNet on synthetic data
 ├─── skip.py: Train Skipnet on synthetic data
-├─── gen_pseudo_sfsnet.py: Generate pseudo dataset using pretrained SfSNet on synthetic dataset
 ├─── gen_pseudo_skipnet.py: Generate pseudo dataset using pretrained Skipnet on synthetic dataset
 ├─── mix_sfs.py: Train SfSNet on mix data
 ├─── eval.py: Perform evaluation using photoface dataset
