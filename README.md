@@ -39,3 +39,5 @@ Implmentation of the SfSNet with specularity using our constrained model (calcul
 ├─── eval.py: Perform evaluation using photoface dataset
 ├─── *.sh: Slurm job scripts
 ```
+## Generate BFM Dataset
+Follow the instructions from [parametric-face-image-generator](https://github.com/unibas-gravis/parametric-face-image-generator) and use the [configuration file](https://github.com/SRatna/inverse-rendering/blob/main/sfsnet-specular/config_sfsnet.json) to generate the synthetic dataset using BFM-2017 model. The configuration file can be further tweaked to generate different datasets.
