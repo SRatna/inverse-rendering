@@ -52,6 +52,10 @@ conda create --name <env> --file requirements.txt
 source activate <env>
 ```
 
+## Training
+Before training make sure you have the synthetic dataset and pre-processed the CelebA and Photoface datasets.
+To train the SkipNet for generating pseudo dataset, you can follow the [skip-job-script](https://github.com/SRatna/inverse-rendering/blob/main/sfsnet-specular/skip_job.sh). For SfSNet training, [this](https://github.com/SRatna/inverse-rendering/blob/main/sfsnet-specular/job.sh) script. You need to change the various paths defined in the job scripts.
+
 ##
 
 Part of the code in this implementation takes [SfSNet-PyTorch](https://github.com/bhushan23/SfSNet-PyTorch) as a reference.
