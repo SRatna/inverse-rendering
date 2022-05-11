@@ -25,20 +25,21 @@ OUT_DIR=sfs-outs/$CELEBA/round-$ROUND
 MODEL_DIR=$OUT_DIR/sfsnet.pth
 mkdir -p $OUT_DIR/tmp
 
+python sfs.py --lr $LR --out-dir $OUT_DIR --model $MODEL_DIR --data-dir $SYN_DATA_DIR  --epochs $EPOCHS --val-size $VAL_SIZE --use-pretrained $USE_PRETRAINED --device $DEVICE --batch-size $BATCH_SIZE
+
+# EPOCHS=3
+# USE_PRETRAINED=yes
 # python sfs.py --lr $LR --out-dir $OUT_DIR --model $MODEL_DIR --data-dir $SYN_DATA_DIR  --epochs $EPOCHS --val-size $VAL_SIZE --use-pretrained $USE_PRETRAINED --device $DEVICE --batch-size $BATCH_SIZE
 
-EPOCHS=3
-USE_PRETRAINED=yes
-# python sfs.py --lr $LR --out-dir $OUT_DIR --model $MODEL_DIR --data-dir $SYN_DATA_DIR  --epochs $EPOCHS --val-size $VAL_SIZE --use-pretrained $USE_PRETRAINED --device $DEVICE --batch-size $BATCH_SIZE
-
-# ROUND=10
-
-PSEUDO_DATA_DIR=/work/ws-tmp/g051151-sfsnet/pseudo-data-sfsnet/$CELEBA/round-$ROUND/
+# setting parameters for pseudo data-generation using SkipNet
+SKIP_ROUND=1
+SKIP_OUT_DIR=skip-outs/$CELEBA/round-$SKIP_ROUND/$MODEL_BASE_DIR
+SKIP_MODEL_DIR=$SKIP_OUT_DIR/skipnet.pth
+PSEUDO_DATA_DIR=/work/ws-tmp/g051151-bfm/pseudo-data-skipnet/$MODEL_BASE_DIR/$CELEBA/round-$SKIP_ROUND/
 CELEBA_DATA_DIR=/work/ws-tmp/g051151-sfsnet/g051151-sfsnet-1640909401/g051151-sfsnet-1633129803/$CELEBA/
 
-# python gen_pseudo_sfsnet.py --model $MODEL_DIR --celeba-data-dir $CELEBA_DATA_DIR --pseudo-data-dir $PSEUDO_DATA_DIR --device $DEVICE --batch-size $BATCH_SIZE
+python gen_pseudo_skipnet.py --model $SKIP_MODEL_DIR --celeba-data-dir $CELEBA_DATA_DIR --pseudo-data-dir $PSEUDO_DATA_DIR --device $DEVICE --batch-size $BATCH_SIZE
 
-# ROUND=12
 MIX_OUT_DIR=mix-outs/$CELEBA/round-$ROUND
 mkdir -p $MIX_OUT_DIR/tmp
 EPOCHS=4
@@ -49,7 +50,7 @@ python mix_sfs.py --lr $LR --out-dir $MIX_OUT_DIR --model $MODEL_DIR --syn-data-
 mkdir -p eval-outs/
 
 PHOTOFACE_DIR=/work/ws-tmp/g051151-sfsnet/g051151-sfsnet-1640909401/g051151-sfsnet-1633129803/Photoface_processed/
-BATCH=1000 # total size of photoface (can be less too)
+BATCH=12000 # total size of photoface (can be less too)
 python eval.py --device $DEVICE --out-dir $OUT_DIR --mix-out-dir $MIX_OUT_DIR --round $ROUND --data-dir $PHOTOFACE_DIR --batch $BATCH
 
 date
