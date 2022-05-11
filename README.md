@@ -26,11 +26,12 @@ Implmentation of the SfSNet with constraints can be found in `/sfsnet-constraint
 Implmentation of the SfSNet with specularity using our constrained model (calculated z-component constraint) can be found in `/sfsnet-specular`. We explain below the role of each scripts present in that directory.
 
 ```
+├─── config_sfsnet.json: Configuration file to generate using BFM-2017 model
+├─── add-specular.py: Add specularity to the synthetic dataset generated using BFM-2017 model
 ├─── datasets.py: Data loading and pre-processing methods 
 ├─── log.py: Log the messages and images using telegram bot
 ├─── utils.py: Helper functions 
 ├─── model_two.py: Definition of all the models used. SkipNet and SfSNet with 2nd constraint (calculated z-component)
-├─── add-specular.py: Add specularity to the synthetic dataset generated using BFM-2017 model
 ├─── sfs.py: Train SfSNet on synthetic data
 ├─── skip.py: Train Skipnet on synthetic data
 ├─── gen_pseudo_skipnet.py: Generate pseudo dataset using pretrained Skipnet on synthetic dataset
