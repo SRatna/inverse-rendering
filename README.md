@@ -58,4 +58,4 @@ To train the SkipNet for generating pseudo dataset, you can follow the [skip-job
 
 ##
 
-Part of the code in this implementation takes [SfSNet-PyTorch](https://github.com/bhushan23/SfSNet-PyTorch) as a reference.
+Most part of the code (especially the models definitions) in this implementation takes [SfSNet-PyTorch](https://github.com/bhushan23/SfSNet-PyTorch) as a reference.
