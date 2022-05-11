@@ -41,3 +41,17 @@ Implmentation of the SfSNet with specularity using our constrained model (calcul
 ```
 ### How to generate BFM synthetic dataset?
 Follow the instructions from [parametric-face-image-generator](https://github.com/unibas-gravis/parametric-face-image-generator) and use the [configuration file](https://github.com/SRatna/inverse-rendering/blob/main/sfsnet-specular/config_sfsnet.json) to generate the synthetic dataset using BFM-2017 model. The configuration file can be further tweaked to generate different datasets.
+
+## Requirements
+**This implementation is only tested under Ubuntu environment with Nvidia GPUs and CUDA installed.**
+
+## Installation
+1. Clone the repository and set up a conda environment with all dependencies as follows:
+```
+conda create --name <env> --file requirements.txt
+source activate <env>
+```
+
+##
+
+Part of the code in this implementation takes [SfSNet-PyTorch](https://github.com/bhushan23/SfSNet-PyTorch) as a reference.
