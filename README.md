@@ -26,7 +26,7 @@ Implmentation of the SfSNet with constraints can be found in `/sfsnet-constraint
 Implmentation of the SfSNet with specularity using our constrained model (calculated z-component constraint) can be found in `/sfsnet-specular`. We explain below the role of each scripts present in that directory.
 
 ```
-├─── config_sfsnet.json: Configuration file to generate using BFM-2017 model
+├─── config_sfsnet.json: Configuration file to generate sythetic dataset using BFM-2017 model
 ├─── add-specular.py: Add specularity to the synthetic dataset generated using BFM-2017 model
 ├─── datasets.py: Data loading and pre-processing methods 
 ├─── log.py: Log the messages and images using telegram bot
