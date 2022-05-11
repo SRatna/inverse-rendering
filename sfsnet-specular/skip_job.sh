@@ -25,17 +25,11 @@ OUT_DIR=skip-outs/$CELEBA/round-$ROUND/$MODEL_BASE_DIR
 MODEL_DIR=$OUT_DIR/skipnet-bfm.pth
 mkdir -p $OUT_DIR/tmp
 
-# python skip.py --lr $LR --out-dir $OUT_DIR --model $MODEL_DIR --data-dir $SYN_DATA_DIR  --epochs $EPOCHS --val-size $VAL_SIZE --use-pretrained $USE_PRETRAINED --device $DEVICE
-
-# EPOCHS=10
-USE_PRETRAINED=yes
 python skip.py --lr $LR --out-dir $OUT_DIR --model $MODEL_DIR --data-dir $SYN_DATA_DIR  --epochs $EPOCHS --val-size $VAL_SIZE --use-pretrained $USE_PRETRAINED --device $DEVICE
 
-# python gen_pseudo_sfsnet.py
-
-# ./mix_job.sh
-# python eval.py
-# python ../eval_bfm.py --batch-size 5000 --path $DATA_DIR
+# EPOCHS=10
+# USE_PRETRAINED=yes
+# python skip.py --lr $LR --out-dir $OUT_DIR --model $MODEL_DIR --data-dir $SYN_DATA_DIR  --epochs $EPOCHS --val-size $VAL_SIZE --use-pretrained $USE_PRETRAINED --device $DEVICE
 
 date
 mv skipnet_bfm_$SLURM_JOB_ID.log $OUT_DIR
